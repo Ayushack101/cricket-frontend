@@ -15,7 +15,7 @@ const MainRoutes = {
   children: [
     { path: "/", element: <Home /> },
     { path: "about", element: <About /> },
-    { path: "collection", element: <Collection /> },
+    { path: "collection/:tcat_id/:mcat_id", element: <Collection /> },
     { path: "productdetails", element: <ProductDetails /> },
     { path: "signin", element: <Auth /> },
   ],

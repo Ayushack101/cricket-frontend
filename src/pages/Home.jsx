@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../components/card/Card";
 import SliderHome from "../components/slider/SliderHome";
 
@@ -25,8 +25,18 @@ import explore_img1 from "../assets/img/shoes.jpg";
 import explore_vid1 from "../assets/img/video.mp4";
 
 import imgbg from "../assets/img/join.jpg";
+import {useDispatch, useSelector} from "react-redux";
+import { fetchCategory ,fetchMidCategory, fetchTrendingProducts} from "../redux/ProductSlice/ProductSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { trendingProducts, trendingStatus, trendingError } = useSelector((state) => state.products);
+  // console.log(topCategory,"top category fucntion ",midCategory)
+  console.log(trendingProducts)
+  useEffect(()=>{
+    dispatch(fetchMidCategory());
+    dispatch(fetchTrendingProducts());
+  },[])
   return (
     <div>
       {/* Slider */}
@@ -125,113 +135,11 @@ const Home = () => {
           </div>
 
           <div className="row">
-            <div className="col-lg-4 col-md-6 col-12 mt-3">
-              <div className="my-badge">
-                <div className="image-slider">
-                  <img src={img1} className="image-one" alt="Image 1" />
-                  <img src={img2} className="image-two" alt="Image 2" />
-                </div>
-                <span className="badge rounded-pill bg-dark">sale</span>
-
-                <div className="silder-txt">
-                  <a href="#">
-                    SLUGGER Corporate combo of White Batting Leg guards/Pads and
-                    White Gloves (2 products)
-                  </a>
-                  <p className="mt-2">Rs. 4,099.00</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-4 col-md-6 col-12 mt-3">
-              <div className="my-badge">
-                <div className="image-slider">
-                  <img src={img3} className="image-one" alt="Image 1" />
-                  <img src={img4} className="image-two" alt="Image 2" />
-                </div>
-                <span className="badge rounded-pill bg-dark">sale</span>
-
-                <div className="silder-txt">
-                  <a href="#">
-                    SLUGGER Corporate combo of White Batting Leg guards/Pads and
-                    White Gloves (2 products)
-                  </a>
-                  <p className="mt-2">Rs. 4,099.00</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-4 col-md-6 col-12 mt-3">
-              <div className="my-badge">
-                <div className="image-slider">
-                  <img src={img1} className="image-one" alt="Image 1" />
-                  <img src={img2} className="image-two" alt="Image 2" />
-                </div>
-                <span className="badge rounded-pill bg-dark">sale</span>
-
-                <div className="silder-txt">
-                  <a href="#">
-                    SLUGGER Corporate combo of White Batting Leg guards/Pads and
-                    White Gloves (2 products)
-                  </a>
-                  <p className="mt-2">Rs. 4,099.00</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-4 col-md-6 col-12 mt-5">
-              <div className="my-badge">
-                <div className="image-slider">
-                  <img src={img5} className="image-one" alt="Image 1" />
-                  <img src={img6} className="image-two" alt="Image 2" />
-                </div>
-                <span className="badge rounded-pill bg-dark">sale</span>
-
-                <div className="silder-txt">
-                  <a href="#">
-                    SLUGGER Corporate combo of White Batting Leg guards/Pads and
-                    White Gloves (2 products)
-                  </a>
-                  <p className="mt-2">Rs. 4,099.00</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-4 col-md-6 col-12 mt-5">
-              <div className="my-badge">
-                <div className="image-slider">
-                  <img src={img3} className="image-one" alt="Image 1" />
-                  <img src={img4} className="image-two" alt="Image 2" />
-                </div>
-                <span className="badge rounded-pill bg-dark">sale</span>
-
-                <div className="silder-txt">
-                  <a href="#">
-                    SLUGGER Corporate combo of White Batting Leg guards/Pads and
-                    White Gloves (2 products)
-                  </a>
-                  <p className="mt-2">Rs. 4,099.00</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-4 col-md-6 col-12 mt-5">
-              <div className="my-badge">
-                <div className="image-slider">
-                  <img src={img1} className="image-one" alt="Image 1" />
-                  <img src={img2} className="image-two" alt="Image 2" />
-                </div>
-                <span className="badge rounded-pill bg-dark">sale</span>
-
-                <div className="silder-txt">
-                  <a href="#">
-                    SLUGGER Corporate combo of White Batting Leg guards/Pads and
-                    White Gloves (2 products)
-                  </a>
-                  <p className="mt-2">Rs. 4,099.00</p>
-                </div>
-              </div>
-            </div>
+          
+           {trendingProducts?.length == 0 ? (<h4>No Products Found</h4> ): trendingProducts?.map((products, index)=>(
+            <Card key={index} img1={products?.product_featured_pic} img2={products?.product_featured_pic} product_name={products?.product_name} product_current_price={products?.product_current_price} />
+           )) }
+           
           </div>
         </div>
       </div>
