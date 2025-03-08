@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 
 import bannerImage from "../assets/img/product-img/p-banner.jpg";
 import img1 from "../assets/img/s-1.jpg";
@@ -8,15 +8,34 @@ import img4 from "../assets/img/s-2-2.jpg";
 import img5 from "../assets/img/s-3.jpg";
 import img6 from "../assets/img/s-3-3.jpg";
 import { useDispatch,useSelector } from "react-redux";
-import { fetchCategory ,fetchMidCategory, fetchTrendingProducts} from "../redux/ProductSlice/ProductSlice";
+import { fetchCategory ,fetchMidCategory, fetchTrendingProducts, fetchProducts, setFilters} from "../redux/ProductSlice/ProductSlice";
 
 const Collection = () => {
+  const [filter, setFilter] = useState([]);
   const dispatch = useDispatch();
-  const {topCategory,midCategory}=useSelector((state)=>state.products);
+  const {topCategory,midCategory, filters}=useSelector((state)=>state.products);
+
+  useEffect(()=>{
+    setFilter([{ filter_type: "mcat_ids", mcat_ids: [9] }, {max_price: 0, min_price: 999}])
+  }, []);
+
+  const pat = async()=>{
+
+  }
+
+  useEffect(()=>{
+    pat();
+  }, [])
+
   useEffect(() => {
     dispatch(fetchCategory());
     dispatch(fetchMidCategory());
+    
+    dispatch(setFilters([{ filter_type: "mcat_ids", mcat_ids: [9] }, {max_price: 0, min_price: 999}]));
+    dispatch(fetchProducts())
   },[]);
+  console.log(filters);
+
   // console.log(topCategory,midCategory,"-----top Category ---  ---  ");
   return (
     <div>
