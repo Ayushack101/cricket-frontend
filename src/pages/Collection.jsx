@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 
 import bannerImage from "../assets/img/product-img/p-banner.jpg";
 import img1 from "../assets/img/s-1.jpg";
@@ -7,16 +7,20 @@ import img3 from "../assets/img/s-2.jpg";
 import img4 from "../assets/img/s-2-2.jpg";
 import img5 from "../assets/img/s-3.jpg";
 import img6 from "../assets/img/s-3-3.jpg";
-import { useDispatch,useSelector } from "react-redux";
-import { fetchCategory ,fetchMidCategory, fetchTrendingProducts} from "../redux/ProductSlice/ProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCategory,
+  fetchMidCategory,
+  fetchTrendingProducts,
+} from "../redux/ProductSlice/ProductSlice";
 
 const Collection = () => {
   const dispatch = useDispatch();
-  const {topCategory,midCategory}=useSelector((state)=>state.products);
+  const { topCategory, midCategory } = useSelector((state) => state.products);
   useEffect(() => {
     dispatch(fetchCategory());
     dispatch(fetchMidCategory());
-  },[]);
+  }, []);
   // console.log(topCategory,midCategory,"-----top Category ---  ---  ");
   return (
     <div>
@@ -26,12 +30,9 @@ const Collection = () => {
 
       <div className="container-fluid py-5">
         {/* filters */}
-       
-     
+
         <div className="row mt-4">
-          <div className="col-lg-3 my-col">
-          
-          </div>
+          <div className="col-lg-3 my-col"></div>
           <div className="col-lg-3 col-md-4 col-sm-12 col-12">
             <div className="side-img">
               <div className="right-img">
