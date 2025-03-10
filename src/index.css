@@ -305,9 +305,15 @@ p {
   text-decoration: underline;
   color: var(--primary-color);
 }
-.silder-txt p {
+.side-img span {
+  font-weight: bold;
+  font-family: "Roboto";
+  font-size: 14px;
+}
+.silder-txt .my-span {
   cursor: pointer;
   color: var(--primary-color);
+  margin-right: 10px;
 }
 .img-bg {
   position: relative;
@@ -783,23 +789,119 @@ p {
 }
 
 /*product section design*/
+.btn-search {
+  margin-left: 26%;
+}
+.btn-search .span {
+  font-weight: 600;
+  font-family: "Roboto";
+  color: grey;
+  font-size: 16px;
+}
+.p-banner img {
+  width: 100%;
+  height: 270px;
+}
+
 .input-btn {
   position: relative;
 }
-.input-btn span {
+.category-btn {
+  position: relative;
+  font-weight: 600;
+  font-family: "Roboto";
+  font-size: 15px;
+  cursor: pointer;
+}
+.right-icon {
+  position: absolute !important;
+  right: 0;
+  top: 0;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+}
+.checkboxes {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.show {
+  max-height: 200px; /* Adjust based on content */
+  opacity: 1;
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
+}
+.football-btn {
+  position: relative;
+}
+.football-btn span {
   position: absolute;
   right: 0;
   top: 0;
 }
-.cricket-checkboxes {
-  display: none;
+
+.football-btn {
+  font-family: var(--paragraph-font);
+  font-weight: 400;
+  text-transform: capitalize;
+  font-size: 20px;
 }
 .side-content h4 {
-  font-family: var(--heading-font);
-  font-weight: 500;
+  font-family: "Roboto";
+  font-weight: 600;
   text-transform: capitalize;
+  font-size: 15px;
+}
+.side-content h6 {
+  font-family: "Roboto";
+  font-weight: 600;
+  font-size: 16px;
+}
+.side-content h4 span i {
+  margin-right: 10px;
 }
 .input-btn {
+  font-family: var(--paragraph-font);
+  font-weight: 400;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.select-sec h5 {
+  font-family: "Roboto";
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 16px;
+}
+.select {
+  display: block;
+  width: 100%;
+  padding: 2px;
+  background: transparent;
+  border-radius: 4px;
+  font-family: "Roboto";
+  font-weight: 500;
+}
+.same-class {
+  position: relative;
+  font-size: 16px !important;
+}
+.same-class span {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.same-class {
   font-family: var(--paragraph-font);
   font-weight: 400;
   text-transform: capitalize;
@@ -816,18 +918,22 @@ p {
   font-family: var(--paragraph-font);
   font-weight: 400;
   text-transform: capitalize;
-  font-size: 20px;
-  line-height: 39px;
+  line-height: 27px;
+  margin-left: 10px;
+  color: grey;
+  font-size: 15px;
 }
 .main-checkbox {
   position: relative;
 }
-.main-checkbox input[type="checkbox"] {
-  position: absolute;
-  right: 0;
-}
+
 .sub-checkbox {
   color: grey;
+}
+.side-img {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 10px;
 }
 .right-img {
   overflow: hidden;
@@ -841,6 +947,11 @@ p {
 .filter-h {
   display: none;
 }
+
+.clear-btn {
+  margin-left: 26%;
+}
+
 @media only screen and (max-width: 993px) {
   .my-col {
     display: none !important;
@@ -848,8 +959,67 @@ p {
   .filter-h {
     display: block;
   }
-}
 
+  .clear-btn {
+    margin-left: 10px;
+  }
+}
+.btn-second {
+  margin-left: 24px;
+  padding: 9px 10px;
+  border-radius: 16px;
+  text-transform: capitalize;
+  background: #000000;
+  font-size: 14px;
+  font-family: "Roboto";
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-second i {
+  margin-left: 5px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  color: black;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
+}
+.btn-one {
+  padding: 9px 11px;
+  border-radius: 16px;
+  text-transform: capitalize;
+  background: gray;
+  font-size: 14px;
+  font-family: "Roboto";
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-one i {
+  margin-left: 5px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  color: black;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
+}
+.p-product {
+  font-family: "Roboto";
+  font-weight: 600;
+  text-transform: capitalize;
+  color: grey;
+  font-size: 14px;
+}
+.myleft-container {
+  position: relative;
+  top: -88px;
+}
 .mypagi.mt-5 {
   display: flex;
   justify-content: center;
@@ -881,7 +1051,10 @@ p {
   justify-content: center;
   gap: 10px; /* Space between thumbnails */
 }
-
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
+  position: inherit !important;
+}
 .thumbnails li {
   margin-bottom: 10px;
 }
@@ -1223,7 +1396,7 @@ p {
   text-transform: uppercase;
   font-weight: 700;
   cursor: pointer;
-  color: #fff;
+  color: #000;
 }
 
 .mycontainer {
@@ -1259,17 +1432,15 @@ p {
 .checkbox:checked + label:before,
 .checkbox:not(:checked) + label:before {
   position: absolute;
-  display: block;
-  width: 36px;
-  height: 36px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  color: #ffeba7;
+  content: "";
   background-color: #102770;
-  font-family: "unicons";
-  content: "\eb4f";
   z-index: 20;
-  top: -10px;
-  left: -10px;
+  left: -1px;
+  top: -2px;
   line-height: 36px;
   text-align: center;
   font-size: 24px;
@@ -1455,8 +1626,11 @@ p {
 .btn {
   color: #fff !important;
 }
+.a-btn {
+  border-radius: 0px !important;
+}
 .btn:hover {
-  background-color: var(--primary-color) !important;
+  background-color: black !important;
 }
 .btn:active,
 .btn:focus {
@@ -1469,6 +1643,15 @@ p {
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
 }
+
+/*cart*/
+@media only screen and (max-width: 580px) {
+  .my-container-sec {
+    overflow-x: scroll;
+  }
+}
+
+/*Extra CSS*/
 
 /* Loader */
 .loader {

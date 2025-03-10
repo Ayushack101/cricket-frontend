@@ -65,10 +65,10 @@ export const fetchTrendingProducts = createAsyncThunk(
 const initialState = {
   midCategory:[],
   topCategory:[],
+  filters: [{ filter_type: "", mcat_ids: [] }, {}, { search_term: "" }],
   productList: [],
-  productStatus: "idle", // "idle" | "loading" | "succeeded" | "failed" https://angry.shinewebtech.in/api/get_mid_category.php?top_category_id=1
-  error: null,
-  filters: [{ product_category: [] }, { search_id: "" }],
+  productStatus: "idle", // "idle" | "loading" | "succeeded" | "failed" 
+  productError: null,
   // Trending Products Status
   trendingProducts: [],
   trendingStatus: "idle",
@@ -81,24 +81,31 @@ const productSlice = createSlice({
   reducers: {
     setFilters(state, action) {
       state.filters[0] = action.payload[0];
+      state.filters[1] = action.payload[1];
     },
+    setFiltersSearch(state, action){
+      state.filters[2] = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
+    // Products Fetching
       .addCase(fetchProducts.pending, (state) => {
-        state.status = "loading";
+        state.productStatus = "loading";
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.products = action.payload;
+        state.productStatus = "succeeded";
+        state.productList = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
+        state.productStatus = "failed";
+        state.productError = action.error.message;
       })
+      // Top Category
       .addCase(fetchCategory.fulfilled, (state, action) => {
           state.topCategory = action.payload;
       })
+      // Mid Category
       .addCase(fetchMidCategory.fulfilled, (state, action) => {
         state.midCategory = action.payload;
       })
@@ -117,6 +124,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { setFilters } = productSlice.actions;
+export const { setFilters, setFiltersSearch } = productSlice.actions;
 
 export default productSlice.reducer;

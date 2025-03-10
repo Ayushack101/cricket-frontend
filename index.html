@@ -31,5 +31,25 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.addEventListener("click", function (event) {
+          // Check if the clicked element is a category button
+          if (event.target.closest(".category-btn")) {
+            var button = event.target.closest(".category-btn");
+            var targetId = button.getAttribute("data-target");
+            var content = document.getElementById(targetId);
+            var icon = button.querySelector("i");
+
+            if (content) {
+              content.classList.toggle("show");
+            }
+            if (icon) {
+              icon.classList.toggle("rotate");
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
