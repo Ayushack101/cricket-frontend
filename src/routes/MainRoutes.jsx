@@ -6,7 +6,8 @@ import Loadable from "../components/loader/Loadable";
 const Home = Loadable(lazy(() => import("../pages/Home")));
 const Collection = Loadable(lazy(() => import("../pages/Collection")));
 const ProductDetails = Loadable(lazy(() => import("../pages/ProductDetails")));
-const Auth = Loadable(lazy(() => import("../pages/Auth")));
+// const Auth = Loadable(lazy(() => import("../pages/Auth")));
+const Login=Loadable(lazy(()=>import("../pages/LoginPage")));
 const About = Loadable(lazy(() => import("../pages/About")));
 
 const MainRoutes = {
@@ -17,7 +18,8 @@ const MainRoutes = {
     { path: "about", element: <About /> },
     { path: "collection/:tcat_id/:mcat_id", element: <Collection /> },
     { path: "productdetails", element: <ProductDetails /> },
-    { path: "signin", element: <Auth /> },
+    { path: "signin", element: <Login /> },
+
   ],
 };
 
