@@ -30,7 +30,7 @@ export const registerFun= createAsyncThunk("auths/RegisterApi",
 )
 
 const user = localStorage.getItem("user") ? 
-JSON.parse(localStorage.getItem("user")) : null;
+JSON.parse(localStorage.getItem("user"))  : null;
 const initialState={
     user,
     loginSuccess: false,
