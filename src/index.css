@@ -1522,3 +1522,20 @@ p {
   color: black;
   z-index: 1;
 }
+.form-group {
+  position: relative;
+}
+
+.form-group input {
+  width: 100%;
+  padding-right: 40px; /* space for icon */
+}
+
+.form-group span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+  
