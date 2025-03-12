@@ -25,18 +25,24 @@ import explore_img1 from "../assets/img/shoes.jpg";
 import explore_vid1 from "../assets/img/video.mp4";
 
 import imgbg from "../assets/img/join.jpg";
-import {useDispatch, useSelector} from "react-redux";
-import { fetchCategory ,fetchMidCategory, fetchTrendingProducts} from "../redux/ProductSlice/ProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCategory,
+  fetchMidCategory,
+  fetchTrendingProducts,
+} from "../redux/ProductSlice/ProductSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { trendingProducts, trendingStatus, trendingError } = useSelector((state) => state.products);
+  const { trendingProducts, trendingStatus, trendingError } = useSelector(
+    (state) => state.products
+  );
   // console.log(topCategory,"top category fucntion ",midCategory)
-  console.log(trendingProducts)
-  useEffect(()=>{
+  console.log(trendingProducts);
+  useEffect(() => {
     dispatch(fetchMidCategory());
     dispatch(fetchTrendingProducts());
-  },[])
+  }, []);
   return (
     <div>
       {/* Slider */}
@@ -135,11 +141,19 @@ const Home = () => {
           </div>
 
           <div className="row">
-          
-           {trendingProducts?.length == 0 ? (<h4>No Products Found</h4> ): trendingProducts?.map((products, index)=>(
-            <Card key={index} img1={products?.product_featured_pic} img2={products?.product_featured_pic} product_name={products?.product_name} product_current_price={products?.product_current_price} />
-           )) }
-           
+            {trendingProducts?.length == 0 ? (
+              <h4>No Products Found</h4>
+            ) : (
+              trendingProducts?.map((products, index) => (
+                <Card
+                  key={index}
+                  img1={products?.product_featured_pic}
+                  product_name={products?.product_name}
+                  product_current_price={products?.product_current_price}
+                  product_old_price={products?.product_old_price}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
