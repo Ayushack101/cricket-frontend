@@ -7,7 +7,7 @@ const Home = Loadable(lazy(() => import("../pages/Home")));
 const Collection = Loadable(lazy(() => import("../pages/Collection")));
 const ProductDetails = Loadable(lazy(() => import("../pages/ProductDetails")));
 // const Auth = Loadable(lazy(() => import("../pages/Auth")));
-const Login=Loadable(lazy(()=>import("../pages/LoginPage")));
+const Login = Loadable(lazy(() => import("../pages/LoginPage")));
 const About = Loadable(lazy(() => import("../pages/About")));
 
 const MainRoutes = {
@@ -16,10 +16,12 @@ const MainRoutes = {
   children: [
     { path: "/", element: <Home /> },
     { path: "about", element: <About /> },
-    { path: "collection/:tcat_id/:mcat_id", element: <Collection /> },
-    { path: "productdetails", element: <ProductDetails /> },
+    {
+      path: "collection/:filter_type/:tcat_id/:mcat_id",
+      element: <Collection />,
+    },
+    { path: "productdetails/:pid", element: <ProductDetails /> },
     { path: "signin", element: <Login /> },
-
   ],
 };
 
