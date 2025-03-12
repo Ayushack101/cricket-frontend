@@ -103,3 +103,6 @@ export const getTrendingProducts = async () => {
     return { error: errorMessage, data };
   }
 };
+
+
+ 
