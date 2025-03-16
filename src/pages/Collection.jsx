@@ -65,9 +65,6 @@ const Collection = () => {
     }));
   };
 
-  console.log(filter);
-  console.log(openCategories);
-
   // Function to add more mcat_id when user clicks a mid-category checkbox
   const handleCategorySelect = (selectedMcatId, parentTcatId) => {
     setFilter((prev) => ({

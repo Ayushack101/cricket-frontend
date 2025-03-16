@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_REACT_APP_BASEURL;
 
 // const authInterceptor = (req) => {
-//   const accessToken = JSON.parse(localStorage.getItem("profile"))?.accessToken;
+//   const accessToken = JSON.parse(localStorage.getItem("user"))?.token;
 //   if (accessToken) {
 //     req.headers.Authorization = `Bearer ${accessToken}`;
 //   }

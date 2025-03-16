@@ -120,7 +120,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.productStatus = "failed";
-        state.productError = action.error.message;
+        state.productError = action.payload;
       })
       // Product Details
       .addCase(fetchProductById.pending, (state) => {
@@ -151,7 +151,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchTrendingProducts.rejected, (state, action) => {
         state.trendingStatus = "failed";
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });

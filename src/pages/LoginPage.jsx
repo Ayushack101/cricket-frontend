@@ -3,61 +3,73 @@ import React, { useEffect, useState } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
 import { HiEyeSlash } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { loginFun } from "../redux/ProductSlice/AuthSlice";
+import { loginFun } from "../redux/AuthSlice/AuthSlice";
 import { Link, useNavigate } from "react-router-dom";
 
-import IMG1 from '../assets/img/champ3.webp';
+import IMG1 from "../assets/img/champ3.webp";
 // import IMG2 from '../assets/img/champ2.webp';
-import IMG3 from '../assets/img/w1.jpg';
-import IMG4 from '../assets/img/w2.jpg';
-import IMG5 from '../assets/img/w3.jpg';
-import IMG6 from '../assets/img/w4.avif';
-import IMG7 from '../assets/img/w5.avif';
-import IMG8 from '../assets/img/w6.avif';
-import IMG2 from '../assets/img/f2.avif';
-import IMG9 from '../assets/img/f1.avif';
+import IMG3 from "../assets/img/w1.jpg";
+import IMG4 from "../assets/img/w2.jpg";
+import IMG5 from "../assets/img/w3.jpg";
+import IMG6 from "../assets/img/w4.avif";
+import IMG7 from "../assets/img/w5.avif";
+import IMG8 from "../assets/img/w6.avif";
+import IMG2 from "../assets/img/f2.avif";
+import IMG9 from "../assets/img/f1.avif";
+import { addToCart } from "../redux/CartSlice/CartSlice";
+// import { addToCart } from "../redux/api/CartApi";
 const LoginPage = () => {
-  const navigate=useNavigate();
-  const [showPass, setShowPass] = useState(false); 
-  const {isLoginLoading, error, loginSuccess, user} = useSelector((state)=>state.auths); 
+  const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
+  const { isLoginLoading, error, loginSuccess } = useSelector(
+    (state) => state.auths
+  );
   const dispatch = useDispatch();
-   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const images = [IMG1, IMG3, IMG4,IMG2, IMG5, IMG6,IMG9, IMG7, IMG8];
-  
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 4000); 
-      return () => clearInterval(interval);
-    }, []);
-  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [IMG1, IMG3, IMG4, IMG2, IMG5, IMG6, IMG9, IMG7, IMG8];
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    if (loginSuccess) {
+      // add local storage cart data to user cart when user successfully logged in
+      const cartData = localStorage.getItem("cart")
+        ? JSON.parse(localStorage.getItem("cart"))
+        : null;
+      if (cartData) {
+        // multiple cart data
+        cartData.forEach((cart) => {
+          dispatch(addToCart(cart));
+        });
+      }
+      localStorage.removeItem("cart");
+      navigate("/");
+    }
+  }, [loginSuccess]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleTogglePassword = () => {
     setShowPass((prev) => !prev);
   };
-useEffect(()=>{
-  if(loginSuccess){
-navigate("/");
-  }
-},[loginSuccess])
-  console.log(user, error, loginSuccess);
 
   const onSubmit = async (data) => {
     dispatch(loginFun(data));
-
   };
 
   return (
     <div>
-        
-        <style>{`
+      <style>{`
         .form-img {
           width: 100%;
           height: 100vh;
@@ -101,11 +113,11 @@ navigate("/");
               <div className="login-card">
                 <h5 className="mb-4 pb-1">Login</h5>
 
-          
-                {error && <h6 className="input-error-main text-danger">{error}</h6>}
+                {error && (
+                  <h6 className="input-error-main text-danger">{error}</h6>
+                )}
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-
                   <div className="form-group">
                     <input
                       type="email"
@@ -121,13 +133,15 @@ navigate("/");
                   <div className="form-group mt-2 position-relative">
                     <input
                       type={showPass ? "text" : "password"}
-                      {...register("password", { required: "Password is required!" })}
+                      {...register("password", {
+                        required: "Password is required!",
+                      })}
                       className="form-style"
                       placeholder="Password"
                       id="logpass"
                       autoComplete="off"
                     />
-                
+
                     <span
                       onClick={handleTogglePassword}
                       className="position-absolute"
@@ -136,28 +150,39 @@ navigate("/");
                         top: "50%",
                         transform: "translateY(-50%)",
                         cursor: "pointer",
-                        color: "#888"
+                        color: "#888",
                       }}
                     >
-                      {showPass ? <HiEyeSlash size={20} /> : <BsFillEyeFill size={20} />}
+                      {showPass ? (
+                        <HiEyeSlash size={20} />
+                      ) : (
+                        <BsFillEyeFill size={20} />
+                      )}
                     </span>
                     <i className="input-icon uil uil-lock-alt" />
                     <p className="input-error">{errors?.password?.message}</p>
                   </div>
 
-               
                   <p className="mb-3 text-center">
-                    <a href="#0" className="link">Forgot your password?</a>
+                    <a href="#0" className="link">
+                      Forgot your password?
+                    </a>
                   </p>
 
-                  <button type="submit" className="login-btn" disabled={isLoginLoading}>
+                  <button
+                    type="submit"
+                    className="login-btn"
+                    disabled={isLoginLoading}
+                  >
                     {isLoginLoading ? "Logging in..." : "Login"}
                   </button>
                 </form>
 
                 <p className="mb-0 mt-4 text-center">
                   Don’t have an account?{" "}
-                  <Link to="/auth/signup" className="link">Signup</Link>
+                  <Link to="/auth/signup" className="link">
+                    Signup
+                  </Link>
                 </p>
               </div>
             </div>

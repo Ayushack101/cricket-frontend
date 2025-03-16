@@ -4,26 +4,33 @@ import { HiEyeSlash } from "react-icons/hi2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { registerFun } from "../redux/ProductSlice/AuthSlice";
-import IMG1 from '../assets/img/champ3.webp';
-import IMG3 from '../assets/img/w1.jpg';
-import IMG4 from '../assets/img/w2.jpg';
-import IMG5 from '../assets/img/w3.jpg';
-import IMG6 from '../assets/img/w4.avif';
-import IMG7 from '../assets/img/w5.avif';
-import IMG8 from '../assets/img/w6.avif';
-import IMG2 from '../assets/img/f2.avif';
-import IMG9 from '../assets/img/f1.avif';
+import { registerFun } from "../redux/AuthSlice/AuthSlice";
+import IMG1 from "../assets/img/champ3.webp";
+import IMG3 from "../assets/img/w1.jpg";
+import IMG4 from "../assets/img/w2.jpg";
+import IMG5 from "../assets/img/w3.jpg";
+import IMG6 from "../assets/img/w4.avif";
+import IMG7 from "../assets/img/w5.avif";
+import IMG8 from "../assets/img/w6.avif";
+import IMG2 from "../assets/img/f2.avif";
+import IMG9 from "../assets/img/f1.avif";
 const Register = () => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
-  const { error, isRegLoading, isRegSuccess } = useSelector((state) => state.auths);
+  const { isRegError, isRegLoading, isRegSuccess } = useSelector(
+    (state) => state.auths
+  );
   const dispatch = useDispatch();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [IMG1, IMG2, IMG9, IMG3, IMG4, IMG5, IMG6, IMG7, IMG8];
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
-  const password = watch('password');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+  const password = watch("password");
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -77,20 +84,29 @@ const Register = () => {
             </div>
           </div>
           <div className="col-lg-5 login-card-container">
-            <div className="d-flex justify-content-center align-items-center py-4" style={{ height: "100%" }}>
+            <div
+              className="d-flex justify-content-center align-items-center py-4"
+              style={{ height: "100%" }}
+            >
               <div className="login-card">
                 <h5 className="mb-4 pb-1">Register</h5>
-                {error && <h6 className="input-error-main text-danger">{error}</h6>}
+                {isRegError && (
+                  <h6 className="input-error-main text-danger">{isRegError}</h6>
+                )}
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-group">
                     <input
                       type="text"
-                      {...register("username", { required: "Username is required" })}
+                      {...register("username", {
+                        required: "Username is required",
+                      })}
                       className="form-style"
                       placeholder="Username"
                       autoComplete="off"
                     />
-                    {errors.username && <p className="text-danger">{errors.username.message}</p>}
+                    {errors.username && (
+                      <p className="text-danger">{errors.username.message}</p>
+                    )}
                   </div>
                   <div className="form-group mt-2">
                     <input
@@ -99,14 +115,17 @@ const Register = () => {
                         required: "Phone number is required",
                         pattern: {
                           value: /^[6-9]\d{9}$/,
-                          message: "Phone must be 10 digits and start with 9,8,7,6"
-                        }
+                          message:
+                            "Phone must be 10 digits and start with 9,8,7,6",
+                        },
                       })}
                       className="form-style"
                       placeholder="Phone Number"
                       autoComplete="off"
                     />
-                    {errors.phone && <p className="text-danger">{errors.phone.message}</p>}
+                    {errors.phone && (
+                      <p className="text-danger">{errors.phone.message}</p>
+                    )}
                   </div>
                   <div className="form-group mt-2">
                     <input
@@ -115,14 +134,16 @@ const Register = () => {
                         required: "Email is required",
                         pattern: {
                           value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                          message: "Invalid email address"
-                        }
+                          message: "Invalid email address",
+                        },
                       })}
                       className="form-style"
                       placeholder="Email address"
                       autoComplete="off"
                     />
-                    {errors.email && <p className="text-danger">{errors.email.message}</p>}
+                    {errors.email && (
+                      <p className="text-danger">{errors.email.message}</p>
+                    )}
                   </div>
                   <div className="form-group mt-2 position-relative">
                     <input
@@ -130,9 +151,10 @@ const Register = () => {
                       {...register("password", {
                         required: "Password is required",
                         pattern: {
-                          value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/,
-                          message: "Min 6 char, 1 symbol, 1 uppercase letter"
-                        }
+                          value:
+                            /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/,
+                          message: "Min 6 char, 1 symbol, 1 uppercase letter",
+                        },
                       })}
                       className="form-style"
                       placeholder="Password"
@@ -140,19 +162,32 @@ const Register = () => {
                     />
                     <span
                       className="position-absolute"
-                      style={{ right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer", color: "#888" }}
+                      style={{
+                        right: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                        color: "#888",
+                      }}
                       onClick={() => setShowPass(!showPass)}
                     >
-                      {showPass ? <HiEyeSlash size={20} /> : <BsFillEyeFill size={20} />}
+                      {showPass ? (
+                        <HiEyeSlash size={20} />
+                      ) : (
+                        <BsFillEyeFill size={20} />
+                      )}
                     </span>
-                    {errors.password && <p className="text-danger">{errors.password.message}</p>}
+                    {errors.password && (
+                      <p className="text-danger">{errors.password.message}</p>
+                    )}
                   </div>
                   <div className="form-group mt-2 position-relative">
                     <input
-                         type={showConfirmPass ? "text" : "password"}
+                      type={showConfirmPass ? "text" : "password"}
                       {...register("confirmPassword", {
                         required: "Confirm Password is required",
-                        validate: value => value === password || "Passwords do not match"
+                        validate: (value) =>
+                          value === password || "Passwords do not match",
                       })}
                       className="form-style"
                       placeholder="Confirm Password"
@@ -160,15 +195,33 @@ const Register = () => {
                     />
                     <span
                       className="position-absolute"
-                      style={{ right: "10px", top: "50%", transform: "translateY(-50%)", cursor: "pointer", color: "#888" }}
+                      style={{
+                        right: "10px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
+                        color: "#888",
+                      }}
                       onClick={() => setShowConfirmPass(!showConfirmPass)}
                     >
-                      {showConfirmPass ? <HiEyeSlash size={20} /> : <BsFillEyeFill size={20} />}
+                      {showConfirmPass ? (
+                        <HiEyeSlash size={20} />
+                      ) : (
+                        <BsFillEyeFill size={20} />
+                      )}
                     </span>
-                    {errors.confirmPassword && <p className="text-danger">{errors.confirmPassword.message}</p>}
+                    {errors.confirmPassword && (
+                      <p className="text-danger">
+                        {errors.confirmPassword.message}
+                      </p>
+                    )}
                   </div>
 
-                  <button type="submit" className="login-btn w-100 mt-3" disabled={isRegLoading}>
+                  <button
+                    type="submit"
+                    className="login-btn w-100 mt-3"
+                    disabled={isRegLoading}
+                  >
                     {isRegLoading ? "Registering..." : "Register"}
                   </button>
                 </form>
