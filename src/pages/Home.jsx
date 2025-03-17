@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
-import Card from "../components/card/Card";
 import SliderHome from "../components/slider/SliderHome";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 import one from "../assets/img/one.jpg";
 import two from "../assets/img/two.jpg";
 import three from "../assets/img/three.jpg";
 import four from "../assets/img/four.jpg";
-
-import img1 from "../assets/img/s-1.jpg";
-import img2 from "../assets/img/s-1-1.jpg";
-import img3 from "../assets/img/s-2.jpg";
-import img4 from "../assets/img/s-2-2.jpg";
-import img5 from "../assets/img/s-3.jpg";
-import img6 from "../assets/img/s-3-3.jpg";
 
 import catimg1 from "../assets/img/bat.jpg";
 import catimg2 from "../assets/img/ball.jpg";
@@ -31,19 +33,51 @@ import {
   fetchMidCategory,
   fetchTrendingProducts,
 } from "../redux/ProductSlice/ProductSlice";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { trendingProducts, trendingStatus, trendingError } = useSelector(
     (state) => state.products
   );
-  // console.log(topCategory,"top category fucntion ",midCategory)
-  console.log(trendingProducts);
+
   useEffect(() => {
     dispatch(fetchMidCategory());
     dispatch(fetchTrendingProducts());
   }, []);
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <button className="slick-prev" onClick={onClick}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
+    );
+  };
+
+  const NextArrow = ({ onClick }) => {
+    return (
+      <button className="slick-next" onClick={onClick}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </button>
+    );
+  };
+
+  var settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    lazyLoad: true,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
+
   return (
+    
     <div>
       {/* Slider */}
       <SliderHome />
@@ -136,23 +170,66 @@ const Home = () => {
       {/* Hot Selling Products */}
       <div className="container-fluid py-4">
         <div className="container">
-          <div className="h-slider">
-            <h1>Hot selling</h1>
+          <div className="h-slider pb-3">
+            <h1>Featured</h1>
           </div>
 
-          <div className="row">
+          <div className="row g-3">
             {trendingProducts?.length == 0 ? (
               <h4>No Products Found</h4>
             ) : (
-              trendingProducts?.map((products, index) => (
-                <Card
-                  key={index}
-                  img1={products?.product_featured_pic}
-                  product_name={products?.product_name}
-                  product_current_price={products?.product_current_price}
-                  product_old_price={products?.product_old_price}
-                />
-              ))
+              <Slider {...settings} className="slider-trending">
+                {trendingProducts?.map((products, index) => (
+                  <div key={index}>
+                    <Link to={`/productdetails/${products?.id}`}>
+                      <div className="side-img">
+                        <div className="right-img" style={{ height: "250px" }}>
+                          <img
+                            src={products?.product_featured_pic}
+                            style={{
+                              objectFit: "cover",
+                              height: "100%",
+                              width: "100%",
+                            }}
+                            className="img-fluid"
+                            alt="Image 1"
+                          />
+                        </div>
+                        <div className="cart-info">
+                          <p style={{ marginBottom: 2 }}>
+                            {products?.product_name.length > 30
+                              ? products?.product_name.substring(0, 30) + "..."
+                              : products?.product_name}
+                          </p>
+                          <span className="my-span">
+                            ₹ {products?.product_current_price}
+                          </span>
+                          <span>
+                            <del>₹ {products?.product_old_price}</del>
+                          </span>
+                          {products?.product_old_price >
+                          products?.product_current_price ? (
+                            <span className="price-off">
+                              {Math.round(
+                                ((products?.product_old_price -
+                                  products?.product_current_price) /
+                                  products?.product_old_price) *
+                                  100
+                              )}
+                              % off
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                          <p style={{ marginBottom: 2, fontSize: "13px" }}>
+                            Free Delivery
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </Slider>
             )}
           </div>
         </div>

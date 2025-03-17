@@ -8,6 +8,14 @@ const Card = ({
   product_current_price,
   product_old_price,
 }) => {
+  // Calculate discount percentage
+  const discountPercentage =
+    product_old_price > product_current_price
+      ? Math.round(
+          ((product_old_price - product_current_price) / product_old_price) *
+            100
+        )
+      : 0;
   return (
     <div className="col-lg-4 col-md-6 col-12">
       <Link to={`/productdetails/${pid}`}>
@@ -20,13 +28,20 @@ const Card = ({
               alt="Image 1"
             />
           </div>
-          <div className="silder-txt mt-3">
-            <p style={{ marginBottom: 0 }}>{product_name}</p>
-            <br />
-            <span className="my-span mt-3">Rs. {product_current_price}</span>
+          <div className="cart-info">
+            <p style={{ marginBottom: 2 }}>
+              {product_name.length > 30
+                ? product_name.substring(0, 30) + "..."
+                : product_name}
+            </p>
+            <span className="my-span">₹ {product_current_price}</span>
             <span>
-              <del>Rs. {product_old_price}</del>
+              <del>₹ {product_old_price}</del>
             </span>
+            {discountPercentage > 0 && (
+              <span className="price-off">{discountPercentage}% off</span>
+            )}
+            <p style={{ marginBottom: 2, fontSize: "13px" }}>Free Delivery</p>
           </div>
         </div>
       </Link>

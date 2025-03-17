@@ -2,7 +2,7 @@
 
 /* Define font family variables */
 :root {
-  --heading-font: "Poppins", serif; /* Variable for heading font family */
+  --heading-font: "Roboto", sans-serif; /* Variable for heading font family */
   --paragraph-font: "Roboto", sans-serif; /* Variable for paragraph font family */
   --primary-color: #ff5500;
   --secondary-color: #ececec;
@@ -38,6 +38,122 @@ a {
 }
 a:hover {
   color: black;
+}
+
+/* ==================
+ Pre Loader 
+ ==================== */
+
+#preloader-screen {
+  background-color: #222;
+  width: 100vw;
+  height: 100vh;
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#loader {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #9370db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #ba55d3;
+  -webkit-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+
+#loader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #ff00ff;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* =======================
+Loader
+ ======================== */
+.loader-main {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid #0000;
+  border-right-color: #ffa50097;
+  position: relative;
+  animation: l24 1s infinite linear;
+}
+.loader-main:before,
+.loader-main:after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+.loader-main:after {
+  animation-duration: 4s;
+}
+@keyframes l24 {
+  100% {transform: rotate(1turn)}
 }
 
 /*top section*/
@@ -1014,20 +1130,115 @@ sidebar
 .sub-checkbox {
   color: grey;
 }
+
+/* Card */
+
+.slider-trending .slick-prev::before,
+.slider-trending .slick-next::before {
+  content: "";
+  opacity: 0;
+}
+
+.slider-trending .slick-prev,
+.slider-trending .slick-next {
+  height: 32px;
+  width: 32px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+}
+
+.slider-trending .slick-prev svg,
+.slider-trending .slick-next svg {
+  font-size: 16px;
+  color: #fff;
+}
+
+.slider-trending .slick-prev:hover,
+.slider-trending .slick-next:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  z-index: 1;
+}
+
+.slider-trending .slick-prev {
+  left: 40px;
+}
+
+.slider-trending .slick-next {
+  right: 40px;
+}
+
+.slider-trending .slick-slide .side-img {
+  margin-right: 20px !important;
+}
+
+.slider-trending .slick-track {
+  margin: 20px 0 !important;
+}
+
 .side-img {
-  box-shadow: var(--shadow-medium);
-  padding: 16px;
+  border: 1px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  overflow: visible;
+  transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.side-img:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transform: scale(1.02);
   border-radius: var(--border-radius);
 }
 .right-img {
   overflow: hidden;
+  border-radius: var(--border-radius);
 }
 .side-img img {
+  border-radius: var(--border-radius);
   transition: 0.3s linear;
 }
 .side-img:hover img {
   transform: scale(1.2);
 }
+
+.cart-info {
+  padding: 16px;
+}
+
+.cart-info span {
+  font-size: 16px;
+  font-weight: 500;
+}
+.cart-info my-span {
+  color: var(--text-color);
+}
+.cart-info del {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: line-through;
+  margin-left: 6px;
+  color: #9a9999;
+}
+.cart-info .price-off {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: line-through;
+  margin-left: 6px;
+  color: var(--primary-color);
+}
+.cart-info del {
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: line-through;
+  margin-left: 6px;
+  color: #9a9999;
+}
+
 .filter-h {
   display: none;
 }

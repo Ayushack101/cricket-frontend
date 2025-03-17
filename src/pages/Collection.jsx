@@ -329,7 +329,7 @@ const Collection = () => {
             )}
 
             {/* Products */}
-            <div className="row gx-3">
+            <div className="row g-3">
               {productStatus === "loading" && <Loader />}
               {productStatus === "succeeded" &&
                 (productList?.length === 0 ? (

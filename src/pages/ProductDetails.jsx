@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchProductById } from "../redux/ProductSlice/ProductSlice";
@@ -9,18 +9,23 @@ import {
   removeAddToCartSuccess,
 } from "../redux/CartSlice/CartSlice";
 
+import { Controlled as ControlledZoom } from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+
+import InnerImageZoom from "react-inner-image-zoom";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+
 const ProductDetails = () => {
   const { pid } = useParams();
 
+  const [selectedImage, setSelectedImage] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const { user } = useSelector((state) => state.auths);
 
   const dispatch = useDispatch();
-  const { productDetailsStatus, productDetails } = useSelector(
-    (state) => state.products
-  );
+  const { productDetails } = useSelector((state) => state.products);
 
   const { addToCartSuccess, addToCartError } = useSelector(
     (state) => state.cart
@@ -43,8 +48,18 @@ const ProductDetails = () => {
       } else {
         setSelectedColor("");
       }
+      if (productDetails?.product_featured_pic) {
+        setSelectedImage(productDetails?.product_featured_pic);
+      }
     }
   }, [productDetails]);
+
+  // Zoom image
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  const handleZoomChange = useCallback((shouldZoom) => {
+    setIsZoomed(shouldZoom);
+  }, []);
 
   // Calculate discount percentage
   const discountPercentage =
@@ -134,27 +149,77 @@ const ProductDetails = () => {
         <div className="row gx-3">
           <div className="col-lg-7 col-12">
             <div className="wrapper" id="product-imgs">
+              {/* Display Big Image */}
               <div className="big-img">
-                <img
-                  src={productDetails?.product_featured_pic}
-                  className="display-img"
-                />
+                {/* <img
+                    alt="That wanaka tree, alone in the water near mountains"
+                    src="/path/to/thatwanakatree.jpg"
+                    width="500"
+                  /> */}
+                <ControlledZoom
+                  isZoomed={isZoomed}
+                  onZoomChange={handleZoomChange}
+                  width="100%"
+                  height="100%"
+                >
+                  <img
+                    width="100%"
+                    height="100%"
+                    src={selectedImage}
+                    className="display-img"
+                    alt="Product"
+                  />
+                </ControlledZoom>
+                {/* <InnerImageZoom
+                  src={selectedImage}
+                  zoomSrc={selectedImage}
+                  zoomType="hover"
+                  zoomPreload={true}
+                /> */}
               </div>
+
+              {/* Thumbnail Selection */}
               <div className="img-selection">
-                <div className="img-thumbnail selected">
+                {/* Featured Image as First Thumbnail */}
+                <div
+                  className={`img-thumbnail ${
+                    selectedImage === productDetails?.product_featured_pic
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    setSelectedImage(productDetails?.product_featured_pic)
+                  }
+                >
                   <img
                     src={productDetails?.product_featured_pic}
                     width="100%"
+                    height="100%"
+                    alt="Thumbnail"
                   />
                 </div>
+
+                {/* Other Images */}
                 {productDetails?.images?.map((img, index) => (
-                  <div key={index} className="img-thumbnail ">
-                    <img src={img?.product_image_url} width="100%" />
+                  <div
+                    key={index}
+                    className={`img-thumbnail ${
+                      selectedImage === img?.product_image_url ? "selected" : ""
+                    }`}
+                    onClick={() => setSelectedImage(img?.product_image_url)}
+                  >
+                    <img
+                      src={img?.product_image_url}
+                      width="100%"
+                      height="100%"
+                      alt={`Thumbnail ${index}`}
+                    />
                   </div>
                 ))}
               </div>
             </div>
           </div>
+
           <div className="col-lg-5 col-12 ps-0 ps-lg-5 pt-5 pt-lg-0">
             <div className="d-flex flex-column justify-content-center align-items-start">
               <div className="product-details">
@@ -179,7 +244,7 @@ const ProductDetails = () => {
                     ₹ {productDetails?.product_old_price}
                   </span>
                   {discountPercentage > 0 && (
-                    <div className="price-off">({discountPercentage}% OFF)</div>
+                    <div className="price-off">({discountPercentage}% off)</div>
                   )}
                 </div>
                 <div>
