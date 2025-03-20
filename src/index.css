@@ -5,8 +5,9 @@
   --heading-font: "Roboto", sans-serif; /* Variable for heading font family */
   --paragraph-font: "Roboto", sans-serif; /* Variable for paragraph font family */
   --primary-color: #ff5500;
-  --secondary-color: #ececec;
+  --secondary-color: #f7f7f7;
   --primary-light: #ffb894;
+  --border-color: #d3d3d3;
   --text-color: #000;
   --icons-size: 20px;
   --border-radius: 2px;
@@ -38,6 +39,15 @@ a {
 }
 a:hover {
   color: black;
+}
+
+hr {
+  margin: 1rem 0 !important;
+  color: none !important;
+  background-color: none !important;
+  border: none !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  opacity: 1 !important;
 }
 
 /* ==================
@@ -153,7 +163,9 @@ Loader
   animation-duration: 4s;
 }
 @keyframes l24 {
-  100% {transform: rotate(1turn)}
+  100% {
+    transform: rotate(1turn);
+  }
 }
 
 /*top section*/
@@ -255,9 +267,9 @@ navbar
     flex-direction: column !important;
   }
 
-  .d-flex {
+  /* .d-flex {
     flex-direction: column !important;
-  }
+  } */
   .btn {
     padding: 6px 10px !important;
   }
@@ -2635,6 +2647,7 @@ Check out page
 .account-info .main-border {
   opacity: 0.69 !important;
   margin: 0 !important;
+  border: 1px solid rgb(212, 212, 212) !important;
 }
 
 .account-info .account-info-box .box-heading {
@@ -2690,6 +2703,7 @@ Check out page
 .address-info .main-border {
   opacity: 0.69 !important;
   margin: 0 !important;
+  border: 1px solid rgb(212, 212, 212) !important;
 }
 
 .address-info .delivery-address label {
@@ -2726,5 +2740,158 @@ Check out page
 }
 
 .address-info .delivery-address .deliver-btn:hover {
+  background-color: var(--primary-color);
+}
+
+/* ==================
+ My Orders
+ ==================== */
+
+.my-orders {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+@media (max-width: 1000px) {
+  .my-orders {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.orders-info .main-heading {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 500;
+}
+.orders-info .main-border {
+  opacity: 0.69 !important;
+  margin: 0 !important;
+  border: 1px solid rgb(212, 212, 212) !important;
+}
+
+.orders-info .order-card {
+  margin-top: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+.orders-info .order-card .order-strip {
+  background-color: var(--secondary-color);
+  padding: 12px 15px;
+}
+
+.orders-info .order-card .order-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orders-info .order-card .order-item .order-item-info {
+  flex-grow: 1;
+}
+
+@media (max-width: 1000px) {
+  .orders-info .order-card .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .orders-info .order-card .order-item .order-item-info {
+    flex-grow: 0;
+  }
+}
+
+.orders-info .order-card .badge {
+  position: static !important;
+}
+
+.orders-info .order-card .order-btn {
+  padding: 4px 10px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+.orders-info .order-card .order-btn:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 1px solid var(--primary-color);
+}
+
+/* =================== 
+ Order Details
+  ================== */
+
+.orders-details .main-heading {
+  text-transform: capitalize;
+  font-size: 22px;
+  font-weight: 500;
+}
+.orders-details .main-border {
+  opacity: 0.69 !important;
+  margin: 0 !important;
+  border: 1px solid rgb(212, 212, 212) !important;
+}
+
+.orders-details .order-items {
+  margin-top: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.orders-details .badge {
+  position: static !important;
+}
+
+.orders-details .order-items .order-btn {
+  padding: 4px 10px !important;
+}
+
+.orders-details .order-btn {
+  padding: 14px 20px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+.orders-details .order-btn:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 1px solid var(--primary-color);
+}
+
+/* ==================== 
+Order Success
+ ========================*/
+
+.order-success {
+  background-color: #f9f9f9;
+}
+
+.order-success .card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+}
+
+.order-success .btn-order {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 16px;
+  background-color: #000;
+  color: #fff;
+  transition: all 200ms linear;
+}
+.order-success .btn-order:hover {
   background-color: var(--primary-color);
 }

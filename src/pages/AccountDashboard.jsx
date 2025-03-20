@@ -36,17 +36,21 @@ const AccountDashboard = () => {
                   <hr />
                   {userInfo?.status === "active" && (
                     <p className="mb-2 text-success">
-                      Your Account is Verified <i class="fa-solid fa-check"></i>
+                      Your Account is Verified{" "}
+                      <i class="fa-solid fa-check ps-1"></i>
                     </p>
                   )}
                   {userInfo?.status === "pending" && (
-                    <p className="mb-2 text-warning">
-                      Your Account is not Verified
-                      <i class="fa-solid fa-xmark"></i>
-                    </p>
+                    <>
+                      <p className="mb-2 text-warning">
+                        Your Account is not Verified
+                        <i class="fa-solid fa-xmark ps-1"></i>
+                      </p>
+                      <Link to={"/auth/email-verify"}>
+                        <button className="box-button">Verify</button>
+                      </Link>
+                    </>
                   )}
-
-                  <button className="box-button">Verify</button>
                 </div>
               </div>
             </div>

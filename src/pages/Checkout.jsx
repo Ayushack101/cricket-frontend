@@ -414,7 +414,10 @@ const Checkout = () => {
               </div>
               <div className="row">
                 <div className="col-lg-6 col-12 mb-3">
+                  <Link to={"/secured/ordersuccess"}>
+
                   <button className="payment-btn">PAY NOW</button>
+                  </Link>
                 </div>
               </div>
             </div>

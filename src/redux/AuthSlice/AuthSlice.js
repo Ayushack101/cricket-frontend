@@ -64,6 +64,25 @@ export const userDeliveryAddress = createAsyncThunk(
   }
 );
 
+export const verifyEmailOtp = createAsyncThunk(
+  "auths/verifyEmailOtp",
+  async (otp, thunkAPI) => {
+    try {
+      const { user } = thunkAPI.getState()?.auths;
+      const { error, data } = await api.verifyEmail({
+        otpArray: otp,
+        user_id: user?.user_id,
+      });
+      if (error) {
+        return thunkAPI.rejectWithValue(error);
+      }
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const user = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
@@ -82,6 +101,10 @@ const initialState = {
   userExtraInfo: null,
   userDelivertAddressLoading: false,
   userDeliveryAddressSuccess: false,
+  // verify Email
+  emailLoading: "idle",
+  emailSuccess: false,
+  emailError: null,
 };
 const AuthSlice = createSlice({
   name: "auths",
@@ -92,6 +115,9 @@ const AuthSlice = createSlice({
     },
     removeUserDeliveryAddressSuccess: (state) => {
       state.userDeliveryAddressSuccess = false;
+    },
+    removeEmailError: (state) => {
+      state.emailError = null;
     },
   },
   extraReducers: (builder) => {
@@ -142,11 +168,26 @@ const AuthSlice = createSlice({
       .addCase(userDeliveryAddress.rejected, (state, action) => {
         state.userDelivertAddressLoading = false;
         state.userDeliveryAddressSuccess = false;
+      })
+      // Verify Email
+      .addCase(verifyEmailOtp.pending, (state, action) => {
+        state.emailLoading = "loading";
+      })
+      .addCase(verifyEmailOtp.fulfilled, (state, action) => {
+        state.emailLoading = "succeded";
+        state.emailSuccess = true;
+      })
+      .addCase(verifyEmailOtp.rejected, (state, action) => {
+        state.emailLoading = "idle";
+        state.emailError = action.payload;
       });
   },
 });
 
-export const { setIsAuthenticate, removeUserDeliveryAddressSuccess } =
-  AuthSlice.actions;
+export const {
+  setIsAuthenticate,
+  removeUserDeliveryAddressSuccess,
+  removeEmailError,
+} = AuthSlice.actions;
 
 export default AuthSlice.reducer;

@@ -98,3 +98,24 @@ export const userDeliveryAddressApi = async (userAddress) => {
     return { error: errorMessage, data: null };
   }
 };
+
+// Verify Email
+
+export const verifyEmail = async (otp) => {
+  try {
+    console.log(otp);
+    const otpData = JSON.stringify(otp);
+    const { data } = await API.post("/verify_email.php", otpData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (data?.success) {
+      return { error: null, data: data };
+    }
+  } catch (error) {
+    const errorMessage = "An unexpected error occured";
+    return { error: errorMessage, data: null };
+  }
+};

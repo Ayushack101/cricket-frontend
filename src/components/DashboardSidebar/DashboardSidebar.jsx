@@ -35,7 +35,10 @@ const DashboardSidebar = ({ activeLink }) => {
         <Link to="/account/orders">
           <li
             className={`list-group-item ${
-              activeLink === "/account/orders" ? "active" : ""
+              activeLink === "/account/orders" ||
+              activeLink === "/account/order/:orderid"
+                ? "active"
+                : ""
             }`}
           >
             My Orders
